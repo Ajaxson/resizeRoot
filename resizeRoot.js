@@ -1,5 +1,5 @@
+//@param (ps) 设计稿大小
 (function(ps){
-    //@param (ps) 设计稿大小
     var Dpr = 1, uAgent = window.navigator.userAgent;
     var isIOS = uAgent.match(/iphone/i);
     var isYIXIN = uAgent.match(/yixin/i);
