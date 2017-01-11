@@ -1,5 +1,12 @@
-//@param (ps) 设计稿大小
-(function(ps){
+//@param (ps) 必选，设计稿大小，值为正整数
+//@param (ps) 可选，最大设计稿计算，值为正整数，默认4096（4k屏）
+//@param (o)  可选，是否宽大于高时（例如横屏） 按高来计算，true || false ，默认为false ，无论哪个大都按这个算
+(function(ps,max,o){
+    var ps = ps;
+    var isMax = max || 4096; 
+    var isOrientation = o || false;
+
+    // 系统参数,无需修改
     var Dpr = 1, uAgent = window.navigator.userAgent;
     var isIOS = uAgent.match(/iphone/i);
     var isYIXIN = uAgent.match(/yixin/i);
@@ -39,18 +46,16 @@
                 //     wWidth = wHeight;
                 // }else if((window.orientation==180||window.orientation==0)){
                 // }
-                if(wWidth > wHeight){
+                if(wWidth > wHeight && isOrientation == true){
                     wWidth = wHeight;
                 }
-                wFsize = wWidth > p ? 100 : wWidth / psWidth;
-                wFsize = wFsize > 32 ? wFsize : 32;
+                wFsize = wWidth > isMax ? isMax / psWidth : wWidth / psWidth;
                 window.screenWidth_ = wWidth;
                 if(isYIXIN || is2345 || ishaosou || isSogou || isLiebao || isGnbr){//YIXIN 和 2345 这里有个刚调用系统浏览器时候的bug，需要一点延迟来获取
                     setTimeout(function(){
                         wWidth = (screen.width > 0) ? (window.innerWidth >= screen.width || window.innerWidth == 0) ? screen.width : window.innerWidth : window.innerWidth;
                         wHeight = (screen.height > 0) ? (window.innerHeight >= screen.height || window.innerHeight == 0) ? screen.height : window.innerHeight : window.innerHeight;
-                        wFsize = wWidth > p ? 100 : wWidth / psWidth;
-                        wFsize = wFsize > 32 ? wFsize : 32;
+                        wFsize = wWidth > isMax ? isMax / psWidth : wWidth / psWidth;
                         // document.getElementsByTagName('html')[0].dataset.dpr = wDpr;
                         document.getElementsByTagName('html')[0].style.fontSize = wFsize + 'px';
                     },500);
@@ -62,13 +67,21 @@
             if(isYIXIN || is2345 || ishaosou || isSogou || isLiebao || isGnbr){//YIXIN 和 2345 这里有个刚调用系统浏览器时候的bug，需要一点延迟来获取
                 setTimeout(function(){
                     var rootWi = document.documentElement.clientWidth;
-                    rootWi = rootWi > p * (dpr/1) ? p * (dpr/1) : rootWi;
+                    var rootHi = document.documentElement.clientHeight;
+                    if(rootWi > rootHi && isOrientation == true){
+                        rootWi = rootHi;
+                    }
+                    rootWi = rootWi > isMax * (dpr/1) ? isMax * (dpr/1) : rootWi;
                     var rootSize = rootWi / p * 100;
                     document.documentElement.style.fontSize = rootSize + "px";
                 },500);
             }else{
                 var rootWi = document.documentElement.clientWidth;
-                rootWi = rootWi > p * (dpr/1) ? p * (dpr/1) : rootWi;
+                var rootHi = document.documentElement.clientHeight;
+                if(rootWi > rootHi && isOrientation == true){
+                    rootWi = rootHi;
+                }
+                rootWi = rootWi > isMax * (dpr/1) ? isMax * (dpr/1) : rootWi;
                 var rootSize = rootWi / p * 100;
                 document.documentElement.style.fontSize = rootSize + "px";
             }
