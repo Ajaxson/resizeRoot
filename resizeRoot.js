@@ -77,13 +77,13 @@
 //                 },500);
 //             }else{
                 var rootWi = document.documentElement.clientWidth;
+                alert(rootWi)
                 var rootHi = document.documentElement.clientHeight;
                 if(rootWi > rootHi && isOrientation == true){
                     rootWi = rootHi;
                 }
                 rootWi = rootWi > isMax * (dpr/1) ? isMax * (dpr/1) : rootWi;
-                var rootSize = rootWi / p * 100;
-                alert(rootWi)
+                var rootSize = rootWi / p * 100;   
                 document.documentElement.style.fontSize = rootSize + "px";
 //             }
 //         }
