@@ -77,13 +77,14 @@
 //                 },500);
 //             }else{
                 var rootWi = document.documentElement.clientWidth;
-                alert(rootWi)
+                alert（"窗口大小:"+ rootWi + "," + screen.width);
                 var rootHi = document.documentElement.clientHeight;
                 if(rootWi > rootHi && isOrientation == true){
                     rootWi = rootHi;
                 }
                 rootWi = rootWi > isMax * (dpr/1) ? isMax * (dpr/1) : rootWi;
                 var rootSize = rootWi / p * 100;   
+                alert（"根字节大小:"+ rootSize);
                 document.documentElement.style.fontSize = rootSize + "px";
 //             }
 //         }
