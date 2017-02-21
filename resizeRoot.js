@@ -83,6 +83,7 @@
                 }
                 rootWi = rootWi > isMax * (dpr/1) ? isMax * (dpr/1) : rootWi;
                 var rootSize = rootWi / p * 100;
+                alert(rootSize)
                 document.documentElement.style.fontSize = rootSize + "px";
 //             }
 //         }
